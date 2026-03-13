@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TempMail Inbox</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; background: #f4f7fb; color: #112; }
+      .container { max-width: 900px; margin: 2rem auto; background: #fff; border-radius: 12px; padding: 1.5rem; box-shadow: 0 10px 24px rgba(0, 0, 0, .08); }
+      h1 { margin-top: 0; }
+      .meta { padding: 0.75rem; background: #eef4ff; border-radius: 8px; margin-bottom: 1rem; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { text-align: left; border-bottom: 1px solid #e7ecf3; padding: 0.7rem; vertical-align: top; }
+      th { background: #fafcff; }
+      .muted { color: #556; font-size: 0.9rem; }
+      .empty { padding: 1rem; background: #fff8e6; border-radius: 8px; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Temporary Inbox</h1>
+      <div class="meta">
+        <div><strong>Email:</strong> {{ email }}</div>
+        <div class="muted"><strong>Last refresh:</strong> {{ refreshed_at }}</div>
+      </div>
+
+      {% if messages %}
+      <table>
+        <thead>
+          <tr>
+            <th>From</th>
+            <th>Subject</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for m in messages %}
+          <tr>
+            <td>{{ m.get('from', 'Unknown') }}</td>
+            <td>{{ m.get('subject', 'No subject') }}</td>
+            <td>{{ m.get('time', '-') }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="empty">No emails found yet. Keep this page open and refresh after receiving email.</div>
+      {% endif %}
+    </div>
+  </body>
+</html>
